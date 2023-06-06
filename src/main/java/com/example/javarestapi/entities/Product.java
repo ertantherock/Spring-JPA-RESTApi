@@ -12,12 +12,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pid;
 
-    @Column(unique = true)
+
     private String title;
 
     private String detail;
 
-    @Column(unique = true)
+
     private Integer price;
 
     private  Boolean status;

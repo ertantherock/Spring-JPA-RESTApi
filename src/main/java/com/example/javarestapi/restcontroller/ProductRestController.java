@@ -1,5 +1,6 @@
 package com.example.javarestapi.restcontroller;
 
+import com.example.javarestapi.config.Rest;
 import com.example.javarestapi.entities.Product;
 import com.example.javarestapi.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +29,13 @@ public class ProductRestController {
     }
 
     @GetMapping("/delete/{pid}")
-    public boolean delete(@PathVariable Long pid){
+    public ResponseEntity delete(@PathVariable Long pid){
 
         return productService.delete(pid);
     }
 
     @PostMapping("/update")
-    public Product update(@RequestBody Product product){
+    public ResponseEntity update(@RequestBody Product product){
         return productService.update(product);
 
     }

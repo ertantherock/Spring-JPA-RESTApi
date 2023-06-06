@@ -41,29 +41,32 @@ public class ProductService {
     }
 
 
-    public boolean delete(Long pid){
+    public ResponseEntity delete(Long pid){
         try {
             productRepository.deleteById(pid);
-            return true;
+            Rest rest = new Rest(true,pid);
+            return new ResponseEntity(rest,HttpStatus.OK);
         }catch (Exception ex){
-            System.err.println("Delete Error"+ ex);
-            return false;
+            Rest rest = new Rest(false,ex.getMessage());
+            return new ResponseEntity(rest,HttpStatus.BAD_REQUEST);
         }
 
     }
 
-    public Product update(Product product){
+    public ResponseEntity update(Product product){
         //Önce Veri Tabanına uğra ve update edilmek istenen nesnenin var olup olmadığını denetle.
         //Çünkü ID yoksa update değil Insert yapar.
         Optional<Product> optionalProduct = productRepository.findById(product.getPid());
         if (optionalProduct.isPresent()) {
             //isPresent ile optionalProduct'ın olup olmadığını doğruladık. Eğer varsa if içi dolaşır.
             productRepository.saveAndFlush(product);
-            return product;
+            Rest rest = new Rest(true,product);
+            return new ResponseEntity(rest,HttpStatus.OK);
 
         }
-        //başarısızsa null döner
-        return null;
+        //başarısızsa bad request döner
+        Rest rest = new Rest(false,product);
+        return new ResponseEntity(rest,HttpStatus.BAD_REQUEST);
     }
 
 
