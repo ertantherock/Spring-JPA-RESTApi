@@ -3,6 +3,7 @@ package com.example.javarestapi.restcontroller;
 import com.example.javarestapi.entities.Product;
 import com.example.javarestapi.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,13 +16,13 @@ public class ProductRestController {
     final ProductService productService;
 
     @PostMapping("/save")
-    public Product save(@RequestBody Product product) {
+    public ResponseEntity save(@RequestBody Product product) {
 
         return productService.save(product);
     }
 
     @GetMapping("/list")
-    public List<Product> list(){
+    public ResponseEntity list(){
 
         return productService.list();
     }
